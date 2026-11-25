@@ -4,39 +4,54 @@
 
 # The World in One Day — 25 November 2026
 
-An entry for make.fun's **news-image-20261125** bounty ($100, 50 places).
-The whole entry is a single 1024×1024 image that sums up one day of world
-news — the front page of 25 November 2026, designed to be read at a glance.
+A single front-page-style image that compresses one day of world news
+into a classic newspaper layout: one dominant lead story, a row of
+secondary headlines, and nothing else competing for the reader's eye.
 
-## What's in the image
+This repository is an entry for the make.fun bounty
+[news-image-20261125](https://make.fun/bounty/news-image-20261125)
+($100 prize pool, 50 paid places). Bounty page:
+https://make.fun/bounty/news-image-20261125
 
-- **RIYADH TOWER HIT** — the lead story. A Houthi drone struck the PIF
-  tower in Riyadh's financial district, wounding 11 people — the second
-  hit on the tower in less than a week (Reuters, 24 Nov 2026).
-- **CIA HACKED** — the CIA and the Office of the Director of National
-  Intelligence were hit by a cyberattack affecting unclassified
-  open-source intelligence systems; no classified information was
-  affected (CNN / New York Times, 24 Nov 2026).
-- **HUAWEI GUILTY** — a federal jury in Brooklyn convicted Huawei on 10
-  of 12 criminal counts, including bank fraud and conspiring to steal
-  trade secrets (Reuters, 24 Nov 2026).
-- **TANKERS HIT IN HORMUZ** — Iran's Revolutionary Guard claimed three
-  oil tankers struck naval mines and caught fire in the Strait of
-  Hormuz (IRNA, 24 Nov 2026; claims not independently verified).
-- **NATO WATCHES POLAND** — NATO plans to deploy early-warning aircraft
-  in Poland after missiles landed in the country during an attack on
-  Ukraine.
+## What the image shows
 
-## How it is delivered
+- **Lead story — "RIYADH TOWER HIT"**: a Houthi drone strikes the PIF
+  Tower in Riyadh, with 11 people reported wounded.
+- **"CIA HACKED"** — a breach story targeting the agency.
+- **"HUAWEI GUILTY"** — a court verdict against the company.
+- **"TANKERS HIT IN HORMUZ"** — tankers reportedly struck in the
+  Strait of Hormuz. Honest note: this particular claim could not be
+  independently verified before publication, and it is presented as
+  reported, not confirmed.
+- **"NATO WATCHES POLAND"** — the alliance monitoring developments
+  on its eastern flank.
 
-`entry.png` is the artwork itself (1024×1024). `main.ts` is a small
-Node.js program that hands it to the grader: it resolves the output
-directory, confirms the source file exists and starts with a valid PNG
-signature, copies the image over byte-identically, and then compares
-SHA-256 digests of the source and the copy so a damaged delivery fails
-instead of slipping through. It also supports a `--check` dry-run mode
-that validates the image without writing anything.
+## How to run
+
+The delivery program is `main.ts`, a dependency-free Node script. It
+locates `entry.png` next to itself, checks the PNG signature and a
+minimum file size, copies the image into the output directory, and
+then re-reads the copy and compares SHA-256 digests so a corrupted
+deliverable can never pass silently.
+
+Copy the image into the default `out/` directory:
+
+```sh
+node main.ts
+```
+
+Choose a different output directory with an environment variable:
+
+```sh
+MAKEFUN_OUTPUT_DIR=/some/other/dir node main.ts
+```
+
+Dry run — validate and hash the source image without writing anything:
+
+```sh
+node main.ts --check
+```
 
 ## License
 
-MIT — see `LICENSE`.
+MIT — see the `LICENSE` file in this repository.
